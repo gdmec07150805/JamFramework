@@ -1,2 +1,2 @@
 # JamFramework
-A unity framework of its own
+I used to learn gameframework
