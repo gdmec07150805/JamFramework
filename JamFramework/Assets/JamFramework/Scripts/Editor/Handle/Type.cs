@@ -9,7 +9,7 @@
 
 using System.Collections.Generic;
 using System.Reflection;
-
+using UnityEngine;
 
 namespace JamFramework
 {
@@ -43,6 +43,7 @@ namespace JamFramework
             System.Type[] types = assembly.GetTypes();
             foreach (System.Type t in types)
             {
+                //Debug.Log(t.FullName);
                 //判断是否是非抽象、可外部使用的类
                 if (t.IsClass && !t.IsAbstract && baseType.IsAssignableFrom(t))
                     typeNames.Add(t.FullName);

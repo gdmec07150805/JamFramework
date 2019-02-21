@@ -10,12 +10,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace  JamFramework.Runtime
+namespace JamFramework.Runtime
 {
-
     public abstract class JamFrameworkComponent : MonoBehaviour
     {
-       
+        protected virtual void Awake()
+        {
+            GameEntry.RegisterComponent(this);
+        }
 
     }
 }

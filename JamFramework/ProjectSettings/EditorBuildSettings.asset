@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/JamFramework/Scenes/SampleScene.unity
+    guid: 7eb01ba7ab844bd418f8c501ccd06f38
   m_configObjects: {}

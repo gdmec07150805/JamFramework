@@ -19,7 +19,7 @@ namespace JamFramework.Editor
     public class ProcessComponentInspector : JamFrameworkComponentInspector
     {
 
-        //private SerializedProperty sp_ProcessTypeNames;
+        private SerializedProperty sp_ProcessTypeNames;
         private SerializedProperty sp_EntranceProcessTypeName;
 
         public List<string> processTypeNames = new List<string>();
@@ -52,7 +52,8 @@ namespace JamFramework.Editor
 
         private void OnEnable()
         {
-            sp_EntranceProcessTypeName = serializedObject.FindProperty("m_EntranceProcedureTypeName");
+            sp_ProcessTypeNames = serializedObject.FindProperty("m_ProcessTypeNames");
+            sp_EntranceProcessTypeName = serializedObject.FindProperty("m_EntranceProcessTypeName");
 
             RefreshProcessTypeName();
         }
@@ -85,14 +86,32 @@ namespace JamFramework.Editor
         /// </summary>
         private void RefreshProcessTypeName()
         {
+            #region 刷新程序集里的所有流程名字
             processTypeNames.Clear();
-            processTypeNames.AddRange( Type.GetTypeNames(typeof(ProcessBase)));
+            processTypeNames.AddRange(Type.GetTypeNames(typeof(ProcessBase)));
+            #endregion
 
+            #region 刷新组件类里的所有流程名字
+            sp_ProcessTypeNames.ClearArray();
+            for (int i = 0; i < processTypeNames.Count; i++)
+            {
+                sp_ProcessTypeNames.InsertArrayElementAtIndex(i);
+                sp_ProcessTypeNames.GetArrayElementAtIndex(i).stringValue = processTypeNames[i];
+            }
+            #endregion
+
+            SetEntranceProcessIndex();
+        }
+
+        /// <summary>
+        /// 设置选择的入口流程下标
+        /// </summary>
+        private void SetEntranceProcessIndex()
+        {
             if (!string.IsNullOrEmpty(sp_EntranceProcessTypeName.stringValue))
             {
                 entranceProcessIndex = processTypeNames.IndexOf(sp_EntranceProcessTypeName.stringValue);
             }
-
         }
 
     }
