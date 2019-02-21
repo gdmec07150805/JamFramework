@@ -15,5 +15,10 @@ namespace JamFramework
 {
     public interface IFsm<T> where T:class
     {
+        /// <summary>
+        /// 开始有限状态机
+        /// </summary>
+        /// <param name="stateType"></param>
+        void Start(Type stateType);
     }
 }

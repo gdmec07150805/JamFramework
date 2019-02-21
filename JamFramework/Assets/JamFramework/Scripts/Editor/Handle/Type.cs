@@ -19,7 +19,7 @@ namespace JamFramework
     internal static class Type 
     {
         private static readonly string AssemblyName_Runtime = "JamFramework.Runtime";
-        private static readonly string AssemblyName_Editor = "JamFramework.Editor";
+        //private static readonly string AssemblyName_Editor = "JamFramework.Editor";
 
         internal static string[] GetTypeNames(System.Type baseType)
         {

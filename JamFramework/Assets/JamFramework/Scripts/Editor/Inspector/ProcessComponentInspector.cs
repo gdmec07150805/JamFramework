@@ -24,7 +24,7 @@ namespace JamFramework.Editor
 
         public List<string> processTypeNames = new List<string>();
 
-        private int entranceProcessIndex = -1;
+        private int m_EntranceProcessIndex = -1;
 
         public override void OnInspectorGUI()
         {
@@ -40,13 +40,12 @@ namespace JamFramework.Editor
             serializedObject.ApplyModifiedProperties();
 
             //重新绘制
-            //Repaint();
+            Repaint();
         }
 
         protected override void OnCompileComplete()
         {
             base.OnCompileComplete();
-
             RefreshProcessTypeName();
         }
 
@@ -54,7 +53,7 @@ namespace JamFramework.Editor
         {
             sp_ProcessTypeNames = serializedObject.FindProperty("m_ProcessTypeNames");
             sp_EntranceProcessTypeName = serializedObject.FindProperty("m_EntranceProcessTypeName");
-
+            Debug.Log(111111);
             RefreshProcessTypeName();
         }
 
@@ -69,11 +68,11 @@ namespace JamFramework.Editor
             {
                 if (processTypeNames != null && processTypeNames.Count > 0)
                 {
-                    int selectIndex = EditorGUILayout.Popup("Entrance Process", entranceProcessIndex, processTypeNames.ToArray());
+                    int selectIndex = EditorGUILayout.Popup("Entrance Process", m_EntranceProcessIndex, processTypeNames.ToArray());
                     
-                    if (selectIndex != entranceProcessIndex)
+                    if (selectIndex != m_EntranceProcessIndex)
                     {
-                        entranceProcessIndex = selectIndex;
+                        m_EntranceProcessIndex = selectIndex;
                         sp_EntranceProcessTypeName.stringValue = processTypeNames[selectIndex];
                     }
                 }
@@ -90,17 +89,29 @@ namespace JamFramework.Editor
             processTypeNames.Clear();
             processTypeNames.AddRange(Type.GetTypeNames(typeof(ProcessBase)));
             #endregion
+            Debug.Log(processTypeNames.Count);
 
             #region 刷新组件类里的所有流程名字
-            sp_ProcessTypeNames.ClearArray();
-            for (int i = 0; i < processTypeNames.Count; i++)
+            List<string> allProcess_tmp = new List<string>();
+            for (int i = 0; i < sp_ProcessTypeNames.arraySize; i++)
             {
-                sp_ProcessTypeNames.InsertArrayElementAtIndex(i);
-                sp_ProcessTypeNames.GetArrayElementAtIndex(i).stringValue = processTypeNames[i];
+                allProcess_tmp.Add(sp_ProcessTypeNames.GetArrayElementAtIndex(i).stringValue);
             }
+            if (allProcess_tmp.Count != processTypeNames.Count)//如果程序集里的流程类个数和之前获得的不一致，刷新
+            {
+                sp_ProcessTypeNames.ClearArray();
+                for (int i = 0; i < processTypeNames.Count; i++)
+                {
+                    sp_ProcessTypeNames.InsertArrayElementAtIndex(i);
+                    sp_ProcessTypeNames.GetArrayElementAtIndex(i).stringValue = processTypeNames[i];
+                }
+            }
+            Debug.Log(sp_ProcessTypeNames.arraySize);
             #endregion
 
             SetEntranceProcessIndex();
+
+            serializedObject.ApplyModifiedProperties();
         }
 
         /// <summary>
@@ -110,7 +121,11 @@ namespace JamFramework.Editor
         {
             if (!string.IsNullOrEmpty(sp_EntranceProcessTypeName.stringValue))
             {
-                entranceProcessIndex = processTypeNames.IndexOf(sp_EntranceProcessTypeName.stringValue);
+                m_EntranceProcessIndex = processTypeNames.IndexOf(sp_EntranceProcessTypeName.stringValue);
+                if (m_EntranceProcessIndex < 0)
+                {
+                    sp_EntranceProcessTypeName.stringValue = null;
+                }
             }
         }
 

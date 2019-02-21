@@ -14,16 +14,9 @@ namespace JamFramework.Runtime
 {
     public class ProcessLogin : ProcessBase
     {
-        // Start is called before the first frame update
-        void Start()
+        protected internal override void OnEnter(IFsm<IProcessManager> fsmOwner)
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            Debug.Log("I'm coming");
         }
     }
 }

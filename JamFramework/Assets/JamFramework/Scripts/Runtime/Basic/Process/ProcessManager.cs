@@ -33,7 +33,7 @@ namespace JamFramework
         {
             if (fsmManager==null)
             {
-                throw new NotImplementedException("FSM manager无效");
+                throw new Exception("FSM manager无效");
             }
 
             m_FsmManager = fsmManager;
@@ -42,7 +42,11 @@ namespace JamFramework
 
         public void StartProcess(Type processType)
         {
-            throw new NotImplementedException();
+            if (processType==null)
+            {
+                throw new Exception("开始流程类不存在：" + processType);
+            }
+            m_ProcessFsm.Start(processType);
         }
     }
 }

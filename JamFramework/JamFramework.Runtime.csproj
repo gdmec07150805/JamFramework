@@ -305,6 +305,7 @@
     <Compile Include="Assets\JamFramework\Scripts\Runtime\Base\GameEntry.cs" />
     <Compile Include="Assets\JamFramework\Scripts\Runtime\Base\JamFrameworkComponent.cs" />
     <Compile Include="Assets\JamFramework\Scripts\Runtime\Basic\Fsm\Fsm.cs" />
+    <Compile Include="Assets\JamFramework\Scripts\Runtime\Basic\Fsm\FsmBase.cs" />
     <Compile Include="Assets\JamFramework\Scripts\Runtime\Basic\Fsm\FsmManager.cs" />
     <Compile Include="Assets\JamFramework\Scripts\Runtime\Basic\Fsm\FsmState.cs" />
     <Compile Include="Assets\JamFramework\Scripts\Runtime\Basic\Fsm\IFsm.cs" />

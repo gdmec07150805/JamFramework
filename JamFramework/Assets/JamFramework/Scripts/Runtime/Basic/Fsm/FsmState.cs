@@ -19,5 +19,10 @@ namespace JamFramework
     /// <typeparam name="T"></typeparam>
     public abstract class FsmState<T> where T : class
     {
+        protected internal virtual void OnInit(IFsm<T> fsm) { }
+        protected internal virtual void OnEnter(IFsm<T> fsm) { }
+        protected internal virtual void OnUpdate(IFsm<T> fsm,float elapseSeconds,float realElapseSeconds) { }
+        protected internal virtual void OnLeave(IFsm<T> fsm,bool isShutdown) { }
+        protected internal virtual void OnDestory(IFsm<T> fsm) { }
     }
 }
