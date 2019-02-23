@@ -46,6 +46,10 @@ namespace JamFramework
             {
                 throw new Exception("开始流程类不存在：" + processType);
             }
+            if (m_ProcessFsm == null)
+            {
+                throw new Exception("流程状态机不存在");
+            }
             m_ProcessFsm.Start(processType);
         }
     }

@@ -15,11 +15,39 @@ namespace JamFramework
 {
     internal sealed class Fsm<T> : FsmBase, IFsm<T> where T : class
     {
+        private readonly T m_Owner;
         private readonly Dictionary<string, FsmState<T>> m_States = new Dictionary<string, FsmState<T>>();
 
         public Fsm(string name,T owner,params FsmState<T>[] states)
         {
+            if (owner == null)
+            {
+                throw new Exception("FSM owner is invalid.");
+            }
 
+            if (states == null || states.Length < 1)
+            {
+                throw new Exception("FSM states is invalid.");
+            }
+
+            m_Owner = owner;
+
+            foreach (FsmState<T> state in states)
+            {
+                if (state == null)
+                {
+                    throw new Exception("FSM states is invalid.");
+                }
+
+                string stateName = state.GetType().FullName;
+                if (m_States.ContainsKey(stateName))
+                {
+                    throw new Exception("FSM state is already exist.");
+                }
+
+                m_States.Add(stateName, state);
+                state.OnInit(this);
+            }
         }
 
         public void Start(Type stateType)

@@ -53,7 +53,6 @@ namespace JamFramework.Editor
         {
             sp_ProcessTypeNames = serializedObject.FindProperty("m_ProcessTypeNames");
             sp_EntranceProcessTypeName = serializedObject.FindProperty("m_EntranceProcessTypeName");
-            Debug.Log(111111);
             RefreshProcessTypeName();
         }
 
@@ -89,7 +88,6 @@ namespace JamFramework.Editor
             processTypeNames.Clear();
             processTypeNames.AddRange(Type.GetTypeNames(typeof(ProcessBase)));
             #endregion
-            Debug.Log(processTypeNames.Count);
 
             #region 刷新组件类里的所有流程名字
             List<string> allProcess_tmp = new List<string>();
@@ -106,7 +104,6 @@ namespace JamFramework.Editor
                     sp_ProcessTypeNames.GetArrayElementAtIndex(i).stringValue = processTypeNames[i];
                 }
             }
-            Debug.Log(sp_ProcessTypeNames.arraySize);
             #endregion
 
             SetEntranceProcessIndex();

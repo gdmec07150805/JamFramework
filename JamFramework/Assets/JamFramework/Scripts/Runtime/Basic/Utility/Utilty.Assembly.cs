@@ -35,7 +35,7 @@ namespace JamFramework
             /// <returns></returns>
             public static Type GetType(string typeName)
             {
-                Debug.Log(typeName);
+                //Debug.Log(typeName);
                 if (string.IsNullOrEmpty(typeName))
                 {
                     throw new Exception("Type name is invalid");
@@ -48,7 +48,7 @@ namespace JamFramework
                 }
                 //从同一程序集里获取
                 type = Type.GetType(typeName);
-                Debug.Log(type.FullName);
+                //Debug.Log(type.FullName);
                 if (type != null)
                 {
                     s_CachedTypes.Add(typeName,type);
@@ -58,7 +58,7 @@ namespace JamFramework
                 foreach (System.Reflection.Assembly assembly in s_Assemblys)
                 {
                     type = Type.GetType(string.Format("{0}, {1}", typeName, assembly.FullName));
-                    Debug.Log(type.FullName);
+                    //Debug.Log(type.FullName);
                     if (type != null)
                     {
                         s_CachedTypes.Add(typeName,type);

@@ -14,7 +14,7 @@ using UnityEngine;
 
 namespace JamFramework
 {
-    public class FsmManager {
+    internal sealed class FsmManager :JamFrameworkModule,IFsmManager{
         private readonly Dictionary<string, FsmBase> m_Fsms = new Dictionary<string, FsmBase>();
         /// <summary>
         /// 创建有限状态机
@@ -38,7 +38,7 @@ namespace JamFramework
         {
             Fsm<T> fsm = new Fsm<T>(name,owner,states);
             m_Fsms.Add(GetFullName<T>(name),fsm);
-            return null;
+            return fsm;
         }
 
         private string GetFullName<T>(String name)
